@@ -20,17 +20,6 @@
         </div>
     </template>
 
-    <!-- Nav -->
-    <nav class="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/60 to-transparent flex items-center justify-between px-6 py-5 pr-36">
-        <a href="/" class="text-white">@await Html.PartialAsync("_Logo")</a>
-        <div class="hidden md:flex gap-6 text-sm text-white/90">
-            <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
-            <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
-            <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
-            <a href="#rezervace" class="bg-river-700 hover:bg-river-600 text-white px-5 py-2 rounded-full transition-colors font-semibold">Rezervovat přímo</a>
-        </div>
-    </nav>
-
     <!-- Slide dots -->
     <div class="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         <template x-for="(s, i) in slides" :key="i">

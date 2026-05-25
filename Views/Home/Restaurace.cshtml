@@ -3,16 +3,8 @@
     ViewData["Description"] = "Restaurace Pension Inge ve Vyšším Brodě – česká kuchyně, zimní zahrada 110 míst, terasa u Vltavy. Otevřeno denně od 7:00.";
 }
 
-<!-- NAV -->
-<nav class="bg-river-800 text-white px-6 py-4 flex items-center justify-between">
-    <a href="/" class="text-white">@await Html.PartialAsync("_Logo")</a>
-    <div class="hidden md:flex gap-6 text-sm text-white/80">
-        <a href="/restaurace" class="text-white font-semibold">Restaurace</a>
-        <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
-        <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
-        <a href="/#rezervace" class="bg-white/20 hover:bg-white/30 px-4 py-1.5 rounded-full transition-colors">Rezervovat</a>
-    </div>
-</nav>
+<!-- spacer pro fixed navbar -->
+<div class="h-14"></div>
 
 <!-- HERO -->
 <div class="relative h-72 md:h-96 overflow-hidden">
