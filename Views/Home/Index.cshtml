@@ -3,13 +3,6 @@
     ViewData["Description"] = "Pension a Restaurace Inge ve Vyšším Brodě na břehu Vltavy. Ubytování, česká restaurace, půjčovna lodí. 200 m od kláštera, 33 km od Českého Krumlova.";
 }
 
-@if (TempData["Success"] != null)
-{
-    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-[70] bg-river-700 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-semibold">
-        @TempData["Success"]
-    </div>
-}
-
 <!-- HERO -->
 <section x-data="heroSlider()" class="relative min-h-screen flex items-end overflow-hidden">
 
@@ -28,13 +21,13 @@
     </template>
 
     <!-- Nav -->
-    <nav class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-5">
+    <nav class="absolute top-0 left-0 right-0 z-20 bg-gradient-to-b from-black/60 to-transparent flex items-center justify-between px-6 py-5 pr-36">
         <a href="/" class="text-white font-display text-xl font-bold drop-shadow">Pension Inge</a>
         <div class="hidden md:flex gap-6 text-sm text-white/90">
             <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
             <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
             <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
-            <a href="#rezervace" class="bg-river-700 hover:bg-river-600 text-white px-4 py-1.5 rounded-full transition-colors">Rezervovat</a>
+            <a href="#rezervace" class="bg-river-700 hover:bg-river-600 text-white px-5 py-2 rounded-full transition-colors font-semibold">Rezervovat přímo</a>
         </div>
     </nav>
 
@@ -46,25 +39,23 @@
     </div>
 
     <!-- Hero text -->
-    <div class="relative z-10 w-full px-6 pb-20 md:px-16">
-        <div class="max-w-3xl">
-            <template x-for="(s, i) in slides" :key="i">
-                <div x-show="current === i">
-                    <span class="inline-block bg-river-700/80 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4" x-text="s.badge"></span>
-                </div>
-            </template>
-            <h1 class="font-display text-4xl md:text-6xl text-white font-bold leading-tight mb-6 drop-shadow-lg">
-                Pension Inge<br/><span class="text-river-300">Vyšší Brod</span>
-            </h1>
-            <p class="text-white/90 text-lg mb-8 max-w-xl">Na břehu Vltavy, 200 m od cisterciáckého kláštera. Ubytování, restaurace a půjčovna lodí.</p>
-            <div class="flex flex-wrap gap-3">
-                <a href="#rezervace" class="bg-river-700 hover:bg-river-600 text-white font-semibold px-7 py-3.5 rounded-full transition-all hover:scale-105 shadow-lg">
-                    Zkontrolovat termín
-                </a>
-                <a href="tel:+420775856372" class="bg-white/10 hover:bg-white/20 backdrop-blur text-white font-semibold px-7 py-3.5 rounded-full transition-colors border border-white/30">
-                    +420 775 856 372
-                </a>
+    <div class="relative z-10 w-full px-6 pb-20 md:px-16 flex flex-col items-center text-center">
+        <template x-for="(s, i) in slides" :key="i">
+            <div x-show="current === i">
+                <span class="inline-block bg-river-700/80 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4" x-text="s.badge"></span>
             </div>
+        </template>
+        <h1 class="font-display text-4xl md:text-6xl text-white font-bold leading-tight mb-6 drop-shadow-lg">
+            Pension Inge<br/><span class="text-river-300">Vyšší Brod</span>
+        </h1>
+        <p class="text-white/90 text-lg mb-8 max-w-xl">Na břehu Vltavy, 200 m od cisterciáckého kláštera. Ubytování, restaurace a půjčovna lodí.</p>
+        <div class="flex flex-wrap gap-3 justify-center">
+            <a href="#rezervace" class="bg-river-600 hover:bg-river-500 text-white font-bold px-8 py-4 rounded-full text-lg transition-all hover:shadow-xl">
+                Rezervovat přímo →
+            </a>
+            <a href="tel:+420775856372" class="bg-white/10 hover:bg-white/20 backdrop-blur text-white font-semibold px-7 py-4 rounded-full transition-colors border border-white/30">
+                +420 775 856 372
+            </a>
         </div>
     </div>
 </section>
@@ -97,7 +88,7 @@
 </section>
 
 <!-- POKOJE -->
-<section class="bg-stone-50 py-20">
+<section id="pokoje" class="bg-stone-50 py-20">
     <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-12">
             <h2 class="font-display text-3xl md:text-4xl font-bold text-stone-800 mb-3">Ubytování</h2>
@@ -107,9 +98,9 @@
         @{
             var pokoje = new[]
             {
-                new { Img = "/images/pokoj-1.jpg",   Nadpis = "Čtyřlůžkový s terasou", Popis = "Prostorný pokoj pro rodiny – 4 lůžka, vlastní terasa s výhledem na řeku Vltavu. Koupelna se sprchou, lednička, TV.", Cena = "Cena na dotaz", Badge = "Výhled na řeku",   Pocet = "2×" },
-                new { Img = "/images/interior-2.jpg", Nadpis = "Dvoulůžkový pokoj",     Popis = "Útulný pokoj pro páry nebo výletníky – 2 lůžka, vlastní koupelna se sprchou, lednička, TV. Klidné prostředí.",       Cena = "Cena na dotaz", Badge = "Pro páry",        Pocet = "2×" },
-                new { Img = "/images/inge2-3.jpg",    Nadpis = "Pension Inge 2",         Popis = "Druhá budova 100 m od Inge 1 – zahrada u Vltavy s grilem, společná kuchyňka a společenská místnost. Čtyřlůžkové pokoje.", Cena = "Cena na dotaz", Badge = "Zahrada u řeky", Pocet = "3×" },
+                new { Img = "/images/pokoj-1.jpg",    Nadpis = "Čtyřlůžkový s terasou", Popis = "Prostorný pokoj pro rodiny – 4 lůžka, vlastní terasa s výhledem na řeku Vltavu. Koupelna se sprchou, lednička, TV.", Cena = "od 850 Kč/os/noc", Badge = "Výhled na řeku",   Pocet = "2×" },
+                new { Img = "/images/interior-2.jpg", Nadpis = "Dvoulůžkový pokoj",      Popis = "Útulný pokoj pro páry nebo výletníky – 2 lůžka, vlastní koupelna se sprchou, lednička, TV. Klidné prostředí.",       Cena = "od 900 Kč/os/noc", Badge = "Pro páry",        Pocet = "2×" },
+                new { Img = "/images/inge2-3.jpg",    Nadpis = "Pension Inge 2",          Popis = "Druhá budova 100 m od Inge 1 – zahrada u Vltavy s grilem, společná kuchyňka a společenská místnost. Čtyřlůžkové pokoje.", Cena = "od 800 Kč/os/noc", Badge = "Zahrada u řeky", Pocet = "3×" },
             };
         }
 
@@ -130,8 +121,8 @@
                         <h3 class="font-semibold text-stone-800 text-lg mb-2">@p.Nadpis</h3>
                         <p class="text-stone-500 text-sm mb-4">@p.Popis</p>
                         <div class="flex items-center justify-between">
-                            <span class="text-river-700 font-semibold text-sm">@p.Cena</span>
-                            <a href="#rezervace" class="bg-river-50 hover:bg-river-100 text-river-700 text-sm font-semibold px-4 py-2 rounded-lg transition-colors">Rezervovat</a>
+                            <span class="text-river-700 font-bold text-sm">@p.Cena</span>
+                            <a href="#rezervace" class="text-xs font-semibold text-river-600 hover:text-river-500 transition-colors">Rezervovat →</a>
                         </div>
                     </div>
                 </div>
@@ -152,7 +143,7 @@
                 ("🚗", "Parkování zdarma"),
                 ("🌿", "Zahrada u Vltavy"),
                 ("🔥", "Gril pro hosty"),
-                ("🏔️", "Lyžování 10 km"),
+                ("⛷️", "Lyžování 10 km"),
                 ("🚿", "Koupelna v každém pokoji"),
                 ("📺", "TV na každém pokoji"),
                 ("🧊", "Lednička v pokoji"),
@@ -182,110 +173,276 @@
     </div>
 </section>
 
-<!-- REZERVACE -->
-<section id="rezervace" class="bg-stone-50 py-20">
-    <div class="max-w-3xl mx-auto px-6">
-        <div class="text-center mb-10">
-            <h2 class="font-display text-3xl md:text-4xl font-bold text-stone-800 mb-3">Poptávka ubytování</h2>
-            <p class="text-stone-500">Přímou rezervací získáte nejlepší cenu a osobní přístup. Odpovíme do 24 hodin.</p>
+<!-- HODNOCENÍ -->
+<section class="py-20 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-8 mb-14">
+            <div>
+                <span class="text-river-600 text-xs font-bold uppercase tracking-widest">Hodnocení hostů</span>
+                <h2 class="font-display text-4xl font-bold text-stone-900 mt-2">Co říkají naši hosté</h2>
+            </div>
+            <div class="flex gap-4">
+                <div class="bg-river-50 border border-river-200 rounded-2xl px-7 py-5 text-center">
+                    <div class="text-4xl font-bold text-river-700">8,8</div>
+                    <div class="text-sm font-bold text-river-600 mt-0.5">Skvělé</div>
+                    <div class="text-xs text-stone-400 mt-1">Booking.com · 187 recenzí</div>
+                </div>
+                <div class="bg-stone-50 border border-stone-200 rounded-2xl px-7 py-5 text-center">
+                    <div class="text-4xl font-bold text-stone-700">4,3</div>
+                    <div class="text-sm font-bold text-stone-600 mt-0.5">Velmi dobré</div>
+                    <div class="text-xs text-stone-400 mt-1">Google · 62 recenzí</div>
+                </div>
+            </div>
         </div>
 
-        <div x-data="rezervaceForm()" class="bg-white rounded-2xl shadow-sm p-8">
-            <!-- Krok 1 -->
-            <div x-show="step === 1">
-                <h3 class="font-semibold text-stone-700 mb-6 text-lg">1 / 2 — Termín a pokoj</h3>
-                <div class="grid sm:grid-cols-2 gap-5">
-                    <div>
-                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Příjezd</label>
-                        <input type="date" x-model="od" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            @{
+                var recenze = new[] {
+                    new { Jmeno = "Lucie K.",         Zeme = "🇨🇿", Hodnoceni = 5, Text = "Krásná poloha přímo u Vltavy. Restaurace výborná, guláš nejlepší za poslední roky. Určitě se vrátíme!", Pobyt = "Červenec 2025" },
+                    new { Jmeno = "Martin &amp; Eva", Zeme = "🇨🇿", Hodnoceni = 5, Text = "Přímý přístup ke kanoím byl skvělý bonus. Celý víkend na vodě a večer výborná večeře. Doporučuji rodinám.", Pobyt = "Srpen 2025" },
+                    new { Jmeno = "Hans W.",           Zeme = "🇩🇪", Hodnoceni = 5, Text = "Wunderschöne Lage an der Moldau, freundliches Personal und leckeres tschechisches Essen. Sehr empfehlenswert!", Pobyt = "September 2025" },
+                    new { Jmeno = "Petra N.",          Zeme = "🇨🇿", Hodnoceni = 5, Text = "Klášter Vyšší Brod kousek od dveří, výlety do Krumlova. Pension čistý, klidný, personál milý. Výborný odpočinek.", Pobyt = "Říjen 2025" },
+                };
+            }
+            @foreach (var r in recenze)
+            {
+                <div class="bg-stone-50 rounded-3xl p-6 border border-stone-100">
+                    <div class="flex items-center gap-1 mb-3">
+                        @for (int i = 0; i < r.Hodnoceni; i++) { <span class="text-amber-400 text-sm">★</span> }
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Odjezd</label>
-                        <input type="date" x-model="do_" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Typ pokoje</label>
-                        <select x-model="typ" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500">
-                            <option value="">— Vyberte —</option>
-                            <option>Čtyřlůžkový s terasou (Inge 1)</option>
-                            <option>Třílůžkový (Inge 1)</option>
-                            <option>Dvoulůžkový (Inge 2)</option>
-                            <option>Čtyřlůžkový (Inge 2)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Počet osob</label>
-                        <input type="number" x-model="osoby" min="1" max="8" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+                    <p class="text-stone-700 text-sm leading-relaxed mb-4">"@Html.Raw(r.Text)"</p>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="font-semibold text-stone-900 text-sm">@r.Zeme @Html.Raw(r.Jmeno)</p>
+                            <p class="text-stone-400 text-xs">@r.Pobyt</p>
+                        </div>
                     </div>
                 </div>
-                <button x-on:click="step=2" :disabled="!od || !do_ || !typ"
-                        class="mt-6 w-full bg-river-700 hover:bg-river-600 disabled:opacity-40 text-white font-semibold py-3.5 rounded-xl transition-colors">
-                    Pokračovat →
-                </button>
-            </div>
+            }
+        </div>
+    </div>
+</section>
 
-            <!-- Krok 2 -->
-            <div x-show="step === 2">
-                <h3 class="font-semibold text-stone-700 mb-6 text-lg">2 / 2 — Kontaktní údaje</h3>
-                <form method="post" action="/rezervace">
-                    <input type="hidden" name="Od"       :value="od" />
-                    <input type="hidden" name="Do"       :value="do_" />
-                    <input type="hidden" name="TypPokoje" :value="typ" />
-                    <input type="hidden" name="Osoby"    :value="osoby" />
-                    <div class="grid sm:grid-cols-2 gap-5">
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-stone-600 mb-1.5">Jméno a příjmení</label>
-                            <input type="text" name="Jmeno" required class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-stone-600 mb-1.5">E-mail</label>
-                            <input type="email" name="Email" required class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-stone-600 mb-1.5">Telefon</label>
-                            <input type="tel" name="Telefon" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
-                        </div>
-                        <div class="sm:col-span-2">
-                            <label class="block text-sm font-medium text-stone-600 mb-1.5">Poznámka</label>
-                            <textarea name="Poznamka" rows="3" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500 resize-none" placeholder="Speciální požadavky, přibližný čas příjezdu…"></textarea>
-                        </div>
-                    </div>
-                    <div class="flex gap-3 mt-6">
-                        <button type="button" x-on:click="step=1" class="px-6 py-3 border border-stone-200 text-stone-600 rounded-xl text-sm hover:bg-stone-50 transition-colors">← Zpět</button>
-                        <button type="submit" class="flex-1 bg-river-700 hover:bg-river-600 text-white font-semibold py-3.5 rounded-xl transition-colors">Odeslat poptávku</button>
-                    </div>
-                </form>
-            </div>
+<!-- REZERVACE -->
+<section id="rezervace" class="py-20 bg-river-800">
+    <div class="max-w-4xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <span class="text-river-400 text-xs font-bold uppercase tracking-widest">Rezervace</span>
+            <h2 class="font-display text-4xl font-bold text-white mt-2 mb-3">Poptávka ubytování</h2>
+            <p class="text-stone-300">Odpovíme do 24 hodin s potvrzením dostupnosti.</p>
         </div>
 
-        <p class="text-center text-stone-400 text-xs mt-4">Bezplatné storno · Odpověď do 24 hodin · Bez poplatků za rezervaci</p>
+        @if (TempData["Success"] != null)
+        {
+            <div class="bg-river-600 text-white rounded-2xl px-6 py-4 mb-6 text-center font-semibold">
+                ✓ @TempData["Success"]
+            </div>
+        }
+
+        <div x-data="rezervace()" class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+
+            <!-- Step indikátor -->
+            <div class="flex">
+                <div x-on:click="step > 1 && (step = 1)"
+                     :class="step === 1 ? 'bg-river-700 text-white' : 'bg-river-900 text-river-300 cursor-pointer hover:bg-river-800'"
+                     class="flex-1 flex items-center justify-center gap-2 py-4 text-sm font-semibold transition-colors">
+                    <span :class="step >= 1 ? 'bg-white/20' : 'bg-white/10'" class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                    <span class="hidden sm:inline">Pobyt &amp; pokoj</span>
+                </div>
+                <div class="w-px bg-river-600"></div>
+                <div :class="step === 2 ? 'bg-river-700 text-white' : 'bg-river-900 text-river-500'"
+                     class="flex-1 flex items-center justify-center gap-2 py-4 text-sm font-semibold">
+                    <span :class="step === 2 ? 'bg-white/20' : 'bg-white/10'" class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                    <span class="hidden sm:inline">Vaše údaje</span>
+                </div>
+            </div>
+
+            <form method="post" action="/rezervace">
+                <input type="hidden" name="Od"        x-bind:value="od" />
+                <input type="hidden" name="Do"        x-bind:value="doDate" />
+                <input type="hidden" name="TypPokoje" x-bind:value="pokoj" />
+                <input type="hidden" name="Osoby"     x-bind:value="osoby" />
+
+                <!-- KROK 1 -->
+                <div x-show="step === 1" class="p-8 space-y-6">
+
+                    <!-- Výběr pokoje -->
+                    <div>
+                        <p class="text-stone-500 text-xs font-bold uppercase tracking-widest mb-3">Typ pokoje</p>
+                        <div class="grid sm:grid-cols-2 gap-3">
+                            <template x-for="p in pokoje" :key="p.id">
+                                <button type="button"
+                                        x-on:click="pokoj = p.id"
+                                        :class="pokoj === p.id
+                                            ? 'border-river-600 bg-river-50 ring-2 ring-river-500'
+                                            : 'border-stone-200 hover:border-river-400'"
+                                        class="border-2 rounded-2xl p-4 text-left transition-all">
+                                    <div class="text-xl mb-1" x-text="p.icon"></div>
+                                    <div class="font-semibold text-stone-900 text-sm" x-text="p.label"></div>
+                                    <div class="text-xs text-stone-400 mt-0.5" x-text="p.popis"></div>
+                                    <div class="text-river-700 font-bold text-sm mt-2" x-text="p.cena"></div>
+                                </button>
+                            </template>
+                        </div>
+                    </div>
+
+                    <!-- Kalendář termínu -->
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <p class="text-stone-500 text-xs font-bold uppercase tracking-widest">Termín pobytu</p>
+                            <p class="text-xs text-river-600 font-medium" x-show="!od">Klikněte na datum příjezdu</p>
+                            <p class="text-xs text-river-600 font-medium" x-show="od && !doDate">Teď vyberte odjezd</p>
+                            <p class="text-xs text-stone-500" x-show="od && doDate"
+                               x-text="fmtDate(od) + ' → ' + fmtDate(doDate) + ' (' + nights + (nights===1?' noc':nights<5?' noci':' nocí') + ')'"></p>
+                        </div>
+                        <div class="flex items-center justify-between mt-3 mb-2">
+                            <button type="button" x-on:click="prevCal()"
+                                    class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 transition-colors text-lg leading-none">‹</button>
+                            <span class="font-semibold text-stone-800 text-sm capitalize" x-text="calMonthLabel"></span>
+                            <button type="button" x-on:click="nextCal()"
+                                    class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500 transition-colors text-lg leading-none">›</button>
+                        </div>
+                        <div class="grid grid-cols-7 text-center mb-1">
+                            <template x-for="h in ['Po','Út','St','Čt','Pá','So','Ne']" :key="h">
+                                <span class="text-xs text-stone-400 font-semibold py-1" x-text="h"></span>
+                            </template>
+                        </div>
+                        <div class="grid grid-cols-7 gap-0.5">
+                            <template x-for="day in calDays" :key="day.key">
+                                <button type="button"
+                                        x-on:click="day.inMonth && !day.disabled && selectDay(day.str)"
+                                        :class="{
+                                            'invisible': !day.inMonth,
+                                            'text-stone-300 cursor-not-allowed': day.isPast,
+                                            'bg-red-100 text-red-300 line-through cursor-not-allowed': day.isBusy,
+                                            'bg-river-700 !text-white font-bold rounded-full': day.isStart || day.isEnd,
+                                            'bg-river-100 text-river-900 rounded-none': day.inRange,
+                                            'rounded-l-full': day.isStart && !day.isEnd,
+                                            'rounded-r-full': day.isEnd && !day.isStart,
+                                            'hover:bg-stone-100': !day.disabled && !day.isStart && !day.isEnd && !day.inRange
+                                        }"
+                                        class="h-9 flex items-center justify-center text-sm transition-colors rounded-lg text-stone-700">
+                                    <span x-text="day.d"></span>
+                                </button>
+                            </template>
+                        </div>
+                        <div class="flex items-center gap-5 mt-3 text-xs text-stone-400">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3.5 h-3.5 rounded-full bg-river-700 inline-block"></span> Váš pobyt
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-3.5 h-3.5 rounded bg-red-100 inline-block"></span> Obsazeno
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Počet osob -->
+                    <div class="flex items-center gap-4">
+                        <p class="text-stone-500 text-xs font-bold uppercase tracking-widest w-24">Osoby</p>
+                        <div class="flex items-center gap-3 border-2 border-stone-200 rounded-xl px-4 py-2.5">
+                            <button type="button" x-on:click="osoby = Math.max(1, osoby-1)"
+                                    class="w-7 h-7 bg-stone-100 hover:bg-stone-200 rounded-full flex items-center justify-center font-bold text-stone-600 transition-colors">−</button>
+                            <span class="w-6 text-center font-semibold text-stone-900" x-text="osoby"></span>
+                            <button type="button" x-on:click="osoby = Math.min(selectedPokoj ? selectedPokoj.max : 4, osoby+1)"
+                                    class="w-7 h-7 bg-stone-100 hover:bg-stone-200 rounded-full flex items-center justify-center font-bold text-stone-600 transition-colors">+</button>
+                        </div>
+                        <p x-show="selectedPokoj" class="text-xs text-stone-400"
+                           x-text="'max. ' + (selectedPokoj ? selectedPokoj.max : '') + ' os.'"></p>
+                    </div>
+
+                    <!-- Cenový souhrn -->
+                    <div x-show="nights > 0 && pokoj" class="bg-stone-50 rounded-2xl p-5 flex items-center justify-between">
+                        <div class="text-sm text-stone-500">
+                            <span x-text="pokoj"></span> · <span x-text="nights"></span> <span x-text="nights === 1 ? 'noc' : nights < 5 ? 'noci' : 'nocí'"></span> · <span x-text="osoby"></span> <span x-text="osoby === 1 ? 'osoba' : osoby < 5 ? 'osoby' : 'osob'"></span>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-xs text-stone-400">Orientační cena</div>
+                            <div class="text-river-700 font-bold text-xl" x-text="totalPrice.toLocaleString('cs-CZ') + ' Kč'"></div>
+                        </div>
+                    </div>
+
+                    <button type="button"
+                            x-on:click="step2()"
+                            :disabled="!pokoj || !od || !doDate || nights <= 0"
+                            class="w-full bg-river-600 hover:bg-river-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold py-4 rounded-2xl text-base transition-all">
+                        Pokračovat k údajům →
+                    </button>
+                </div>
+
+                <!-- KROK 2 -->
+                <div x-show="step === 2" class="p-8">
+                    <div class="bg-river-50 border border-river-200 rounded-2xl p-4 mb-6 flex items-center justify-between text-sm">
+                        <div class="text-stone-600">
+                            <strong class="text-stone-900" x-text="pokoj"></strong>
+                            · <span x-text="od"></span> → <span x-text="doDate"></span>
+                            · <span x-text="osoby + ' os.'"></span>
+                        </div>
+                        <div class="font-bold text-river-700" x-text="totalPrice.toLocaleString('cs-CZ') + ' Kč'"></div>
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-stone-500 text-xs font-bold uppercase tracking-widest block mb-2">Jméno a příjmení *</label>
+                            <input name="Jmeno" required type="text" placeholder="Jan Novák"
+                                   class="w-full border-2 border-stone-200 focus:border-river-500 rounded-xl px-4 py-3 text-stone-900 text-sm focus:outline-none transition-colors" />
+                        </div>
+                        <div>
+                            <label class="text-stone-500 text-xs font-bold uppercase tracking-widest block mb-2">E-mail *</label>
+                            <input name="Email" required type="email" placeholder="jan@email.cz"
+                                   class="w-full border-2 border-stone-200 focus:border-river-500 rounded-xl px-4 py-3 text-stone-900 text-sm focus:outline-none transition-colors" />
+                        </div>
+                        <div>
+                            <label class="text-stone-500 text-xs font-bold uppercase tracking-widest block mb-2">Telefon</label>
+                            <input name="Telefon" type="tel" placeholder="+420 123 456 789"
+                                   class="w-full border-2 border-stone-200 focus:border-river-500 rounded-xl px-4 py-3 text-stone-900 text-sm focus:outline-none transition-colors" />
+                        </div>
+                        <div>
+                            <label class="text-stone-500 text-xs font-bold uppercase tracking-widest block mb-2">Domácí zvíře?</label>
+                            <select name="Poznamka"
+                                    class="w-full border-2 border-stone-200 focus:border-river-500 rounded-xl px-4 py-3 text-stone-900 text-sm focus:outline-none transition-colors bg-white">
+                                <option value="">Ne</option>
+                                <option value="Cestuji s domácím zvířetem">Ano (po dohodě)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <label class="text-stone-500 text-xs font-bold uppercase tracking-widest block mb-2">Poznámka / přání</label>
+                        <textarea name="Poznamka2" rows="2" placeholder="Půjčovna lodí, dětská postýlka, pozdní příjezd…"
+                                  class="w-full border-2 border-stone-200 focus:border-river-500 rounded-xl px-4 py-3 text-stone-900 text-sm focus:outline-none transition-colors resize-none"></textarea>
+                    </div>
+
+                    <div class="flex gap-3 mt-6">
+                        <button type="button" x-on:click="step = 1"
+                                class="px-6 border-2 border-stone-200 hover:border-stone-400 text-stone-600 font-semibold rounded-2xl py-4 transition-colors text-sm">
+                            ← Zpět
+                        </button>
+                        <button type="submit"
+                                class="flex-1 bg-river-600 hover:bg-river-500 text-white font-bold py-4 rounded-2xl text-base transition-all">
+                            Odeslat poptávku →
+                        </button>
+                    </div>
+                    <p class="text-center text-stone-400 text-xs mt-4">Potvrzení do 24 hodin. Žádný závazek k platbě.</p>
+                </div>
+            </form>
+        </div>
     </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="bg-stone-800 text-stone-300 py-12">
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+<footer class="bg-stone-900 text-stone-400 py-10">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
         <div>
-            <p class="font-display text-white font-bold text-lg mb-3">Pension Inge</p>
-            <p class="text-sm leading-relaxed">Mělů 379<br />382 73 Vyšší Brod<br />Jižní Čechy</p>
+            <span class="text-white font-display font-bold text-lg">Pension Inge</span>
+            <span class="ml-3">Vyšší Brod · Šumava · Vltava</span>
         </div>
-        <div>
-            <p class="font-semibold text-white mb-3">Kontakt</p>
-            <p class="text-sm"><a href="tel:+420775856372" class="hover:text-white">+420 775 856 372</a></p>
-            <p class="text-sm"><a href="mailto:info@pensioninge.cz" class="hover:text-white">info@pensioninge.cz</a></p>
+        <div class="flex gap-6">
+            <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
+            <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
+            <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
+            <a href="#rezervace" class="hover:text-white transition-colors">Rezervace</a>
         </div>
-        <div>
-            <p class="font-semibold text-white mb-3">Navigace</p>
-            <div class="flex flex-col gap-1 text-sm">
-                <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
-                <a href="/vylety" class="hover:text-white transition-colors">Výlety v okolí</a>
-                <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
-                <a href="#rezervace" class="hover:text-white transition-colors">Rezervace</a>
-            </div>
-        </div>
-    </div>
-    <div class="max-w-6xl mx-auto px-6 mt-8 pt-6 border-t border-stone-700 text-xs text-stone-500 text-center">
-        © 2025 Pension a Restaurace Inge · Vyšší Brod
+        <p>© 2025 Pension a Restaurace Inge</p>
     </div>
 </footer>
 
@@ -295,10 +452,10 @@ function heroSlider() {
     return {
         current: 0,
         slides: [
-            { img: '/images/letecky.jpg',   badge: 'Pension Inge · Vyšší Brod · Jižní Čechy · Vltava' },
-            { img: '/images/vltava.jpg',    badge: '🛶 Kanoistika a rafting přímo od penzionu' },
-            { img: '/images/exterior-1.jpg', badge: '🌿 Příroda a klid na břehu Vltavy' },
-            { img: '/images/inge2-2.jpg',   badge: '🏛️ 200 m od cisterciáckého kláštera Vyšší Brod' },
+            { img: '/images/vltava.jpg',     badge: 'Pension Inge · Vyšší Brod · Jižní Čechy · Vltava' },
+            { img: '/images/krumlov.jpg',    badge: '🏰 Český Krumlov UNESCO – 33 km od penzionu' },
+            { img: '/images/exterior-1.jpg', badge: '🛶 Kanoistika a rafting přímo od penzionu' },
+            { img: '/images/inge2-2.jpg',    badge: '🌿 Příroda a klid na břehu Vltavy' },
         ],
         init() {
             setInterval(() => { this.current = (this.current + 1) % this.slides.length; }, 5000);
@@ -306,8 +463,109 @@ function heroSlider() {
         goTo(i) { this.current = i; }
     };
 }
-function rezervaceForm() {
-    return { step: 1, od: '', do_: '', typ: '', osoby: 2 };
+
+function rezervace() {
+    return {
+        step: 1,
+        od: '',
+        doDate: '',
+        osoby: 2,
+        pokoj: '',
+        calYear: new Date().getFullYear(),
+        calMonth: new Date().getMonth(),
+        pokoje: [
+            { id: 'Čtyřlůžkový s terasou', icon: '🌊', label: 'Čtyřlůžkový s terasou', popis: 'Až 4 os., terasa, výhled na řeku', cena: 'od 850 Kč/os/noc', ppn: 850, max: 4 },
+            { id: 'Třílůžkový pokoj',       icon: '🛏️', label: 'Třílůžkový pokoj',       popis: '3 os., Pension Inge 1',            cena: 'od 800 Kč/os/noc', ppn: 800, max: 3 },
+            { id: 'Dvoulůžkový pokoj',      icon: '🌿', label: 'Dvoulůžkový pokoj',      popis: '2 os., zahrada u Vltavy',          cena: 'od 900 Kč/os/noc', ppn: 900, max: 2 },
+            { id: 'Čtyřlůžkový (Inge 2)',   icon: '🏡', label: 'Čtyřlůžkový (Inge 2)',   popis: 'Až 4 os., gril, kuchyňka',        cena: 'od 800 Kč/os/noc', ppn: 800, max: 4 },
+        ],
+        get nights() {
+            if (!this.od || !this.doDate) return 0;
+            const n = Math.round((new Date(this.doDate) - new Date(this.od)) / 86400000);
+            return n > 0 ? n : 0;
+        },
+        get selectedPokoj() {
+            return this.pokoje.find(p => p.id === this.pokoj) || null;
+        },
+        get totalPrice() {
+            const p = this.selectedPokoj;
+            if (!p || this.nights <= 0) return 0;
+            const ppn = this.nights === 1 ? p.ppn * 2 : p.ppn;
+            return ppn * this.osoby * this.nights;
+        },
+        get busySet() {
+            const ranges = [
+                ['2026-06-20','2026-06-22'], ['2026-07-04','2026-07-12'],
+                ['2026-07-19','2026-07-26'], ['2026-08-08','2026-08-16'],
+                ['2026-12-26','2027-01-02'],
+            ];
+            const s = new Set();
+            for (const [a, b] of ranges) {
+                for (let d = new Date(a); d <= new Date(b); d.setDate(d.getDate()+1))
+                    s.add(d.toISOString().slice(0,10));
+            }
+            return s;
+        },
+        get calMonthLabel() {
+            return new Date(this.calYear, this.calMonth, 1)
+                .toLocaleDateString('cs-CZ', { month: 'long', year: 'numeric' });
+        },
+        get calDays() {
+            const y = this.calYear, m = this.calMonth;
+            const first = new Date(y, m, 1);
+            const last  = new Date(y, m+1, 0);
+            const today = new Date(); today.setHours(0,0,0,0);
+            let dow = first.getDay(); dow = dow === 0 ? 6 : dow - 1;
+            const days = [];
+            for (let i = 0; i < dow; i++)
+                days.push({ key: 'e'+i, inMonth: false, d: '', str: '', isPast: false, isBusy: false, isStart: false, isEnd: false, inRange: false, disabled: true });
+            for (let d = 1; d <= last.getDate(); d++) {
+                const date = new Date(y, m, d);
+                const str  = date.toISOString().slice(0,10);
+                const isPast = date < today;
+                const isBusy = !isPast && this.busySet.has(str);
+                const isStart = str === this.od;
+                const isEnd   = str === this.doDate;
+                const inRange = !!(this.od && this.doDate && str > this.od && str < this.doDate);
+                days.push({ key: str, inMonth: true, d, str, isPast, isBusy, isStart, isEnd, inRange, disabled: isPast || isBusy });
+            }
+            return days;
+        },
+        prevCal() {
+            if (this.calMonth === 0) { this.calMonth = 11; this.calYear--; }
+            else this.calMonth--;
+        },
+        nextCal() {
+            if (this.calMonth === 11) { this.calMonth = 0; this.calYear++; }
+            else this.calMonth++;
+        },
+        selectDay(str) {
+            if (!this.od || this.doDate || str <= this.od) {
+                this.od = str; this.doDate = '';
+            } else {
+                let hasBusy = false;
+                for (let d = new Date(this.od); d < new Date(str); d.setDate(d.getDate()+1))
+                    if (this.busySet.has(d.toISOString().slice(0,10))) { hasBusy = true; break; }
+                if (hasBusy) { this.od = str; this.doDate = ''; }
+                else this.doDate = str;
+            }
+        },
+        fmtDate(str) {
+            if (!str) return '';
+            const [y,m,d] = str.split('-');
+            return d + '.' + m + '.';
+        },
+        step2() {
+            if (!this.pokoj || !this.od || !this.doDate || this.nights <= 0) return;
+            this.step = 2;
+        },
+        init() {
+            this.$watch('pokoj', id => {
+                const p = this.pokoje.find(x => x.id === id);
+                if (p && this.osoby > p.max) this.osoby = p.max;
+            });
+        }
+    };
 }
 </script>
 }
