@@ -1,0 +1,99 @@
+@{
+    ViewData["Title"] = "Galerie – Pension Inge Vyšší Brod";
+    ViewData["Description"] = "Fotogalerie Pensionu Inge – pokoje, restaurace, zahrada u Vltavy, exteriér.";
+
+    var photos = new[]
+    {
+        new { Src = "/images/letecky.jpg",    Alt = "Pension Inge – letecký pohled",   Cat = "exteriér" },
+        new { Src = "/images/vltava.jpg",     Alt = "Výhled na řeku Vltavu",           Cat = "exteriér" },
+        new { Src = "/images/exterior-1.jpg", Alt = "Pension Inge 1 – exteriér léto",  Cat = "exteriér" },
+        new { Src = "/images/exterior-2.jpg", Alt = "Pension Inge 1 – zahrada",        Cat = "exteriér" },
+        new { Src = "/images/vchod-1.jpg",    Alt = "Vchod Pension Inge",              Cat = "exteriér" },
+        new { Src = "/images/vjezd.jpg",      Alt = "Pension Inge u řeky",             Cat = "exteriér" },
+        new { Src = "/images/pokoj-1.jpg",    Alt = "Čtyřlůžkový pokoj",              Cat = "pokoje" },
+        new { Src = "/images/koupelna.jpg",   Alt = "Koupelna",                        Cat = "pokoje" },
+        new { Src = "/images/interior-1.jpg", Alt = "Interiér pokoje",                 Cat = "pokoje" },
+        new { Src = "/images/interior-2.jpg", Alt = "Pokoj s výhledem",               Cat = "pokoje" },
+        new { Src = "/images/interior-3.jpg", Alt = "Dvoulůžkový pokoj",              Cat = "pokoje" },
+        new { Src = "/images/inge2-1.jpg",    Alt = "Pension Inge 2 – exteriér",       Cat = "restaurace" },
+        new { Src = "/images/inge2-2.jpg",    Alt = "Pension Inge 2 – zimní zahrada",  Cat = "restaurace" },
+        new { Src = "/images/inge2-3.jpg",    Alt = "Zahrada u Vltavy",               Cat = "restaurace" },
+        new { Src = "/images/inge2-4.jpg",    Alt = "Terasa restaurace",              Cat = "restaurace" },
+        new { Src = "/images/inge2-5.jpg",    Alt = "Restaurace – sál",              Cat = "restaurace" },
+    };
+}
+
+<!-- NAV -->
+<nav class="bg-river-800 text-white px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-display font-bold text-lg">Pension Inge</a>
+    <div class="hidden md:flex gap-6 text-sm text-white/80">
+        <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
+        <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
+        <a href="/galerie" class="text-white font-semibold">Galerie</a>
+        <a href="/#rezervace" class="bg-white/20 hover:bg-white/30 px-4 py-1.5 rounded-full transition-colors">Rezervovat</a>
+    </div>
+</nav>
+
+<div class="max-w-6xl mx-auto px-6 py-12" x-data="galerie()">
+    <div class="text-center mb-10">
+        <h1 class="font-display text-3xl md:text-4xl font-bold text-stone-800 mb-3">Galerie</h1>
+        <p class="text-stone-500">Pension Inge – Vyšší Brod</p>
+    </div>
+
+    <!-- Filtry -->
+    <div class="flex justify-center gap-3 mb-10 flex-wrap">
+        @foreach (var cat in new[] { "vše", "exteriér", "pokoje", "restaurace" })
+        {
+            <button x-on:click="filter='@cat'"
+                    :class="filter==='@cat' ? 'bg-river-700 text-white' : 'bg-stone-100 text-stone-600 hover:bg-stone-200'"
+                    class="px-5 py-2 rounded-full text-sm font-medium transition-colors">
+                @(cat == "vše" ? "Vše" : char.ToUpper(cat[0]) + cat.Substring(1))
+            </button>
+        }
+    </div>
+
+    <!-- Masonry grid -->
+    <div class="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+        @foreach (var p in photos)
+        {
+            <div x-show="filter==='vše' || filter==='@p.Cat'"
+                 x-transition:enter="transition duration-300"
+                 x-transition:enter-start="opacity-0 scale-95"
+                 x-transition:enter-end="opacity-100 scale-100"
+                 class="break-inside-avoid cursor-pointer rounded-xl overflow-hidden"
+                 x-on:click="lightbox('@p.Src', '@p.Alt')">
+                <img src="@p.Src" alt="@p.Alt" loading="lazy"
+                     class="w-full hover:scale-105 transition-transform duration-500" />
+            </div>
+        }
+    </div>
+
+    <!-- Lightbox -->
+    <div x-show="lbOpen" x-cloak
+         x-transition:enter="transition duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+         x-on:click.self="lbOpen=false" x-on:keydown.escape.window="lbOpen=false">
+        <img :src="lbSrc" :alt="lbAlt" class="max-h-[90vh] max-w-[90vw] rounded-xl shadow-2xl object-contain" />
+        <button x-on:click="lbOpen=false" class="absolute top-4 right-4 text-white/70 hover:text-white">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+    </div>
+</div>
+
+<footer class="bg-stone-800 text-stone-400 py-8 text-center text-sm">
+    <p>Pension a Restaurace Inge · Mělů 379, 382 73 Vyšší Brod · <a href="tel:+420775856372" class="hover:text-white">+420 775 856 372</a></p>
+</footer>
+
+@section Scripts {
+<script>
+function galerie() {
+    return {
+        filter: 'vše',
+        lbOpen: false, lbSrc: '', lbAlt: '',
+        lightbox(src, alt) { this.lbSrc = src; this.lbAlt = alt; this.lbOpen = true; }
+    };
+}
+</script>
+}

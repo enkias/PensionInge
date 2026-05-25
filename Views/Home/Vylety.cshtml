@@ -1,0 +1,74 @@
+@{
+    ViewData["Title"] = "Výlety v okolí – Pension Inge Vyšší Brod";
+    ViewData["Description"] = "Tipy na výlety z Pensionu Inge – klášter Vyšší Brod, Český Krumlov, hrad Rožmberk, Vltava, Lipno, lyžování Kramolín.";
+}
+
+<!-- NAV -->
+<nav class="bg-river-800 text-white px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-display font-bold text-lg">Pension Inge</a>
+    <div class="hidden md:flex gap-6 text-sm text-white/80">
+        <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
+        <a href="/vylety" class="text-white font-semibold">Výlety</a>
+        <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
+        <a href="/#rezervace" class="bg-white/20 hover:bg-white/30 px-4 py-1.5 rounded-full transition-colors">Rezervovat</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="relative h-64 md:h-80 overflow-hidden">
+    <img src="/images/vltava.jpg" alt="Vltava u Vyšší Brod" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+    <div class="absolute bottom-8 left-8">
+        <h1 class="font-display text-4xl md:text-5xl font-bold text-white drop-shadow">Výlety v okolí</h1>
+        <p class="text-white/80 mt-2">Příroda, kultura a sport na dosah</p>
+    </div>
+</div>
+
+<div class="max-w-5xl mx-auto px-6 py-16">
+
+    @{
+        var vylety = new[]
+        {
+            new { Emoji = "🏛️", Nadpis = "Klášter Vyšší Brod",      Vzdalenost = "200 m",  Popis = "Cisterciácké opatství z roku 1259 – gotický kostel, klášterní galerie a jedna z nejstarších knihoven v Čechách. Prohlídka trvá 40–50 minut." },
+            new { Emoji = "🏰", Nadpis = "Hrad Rožmberk",            Vzdalenost = "10 km",  Popis = "Středověká pevnost z 13. století nad Vltavou s expozicí středověkého soudnictví a nádherným výhledem na okolní krajinu." },
+            new { Emoji = "🏙️", Nadpis = "Český Krumlov (UNESCO)",   Vzdalenost = "33 km",  Popis = "Jedno z nejkrásnějších měst střední Evropy – zámek s barokním divadlem, historické centrum, řeka Vltava. Celodenní výlet." },
+            new { Emoji = "🛶", Nadpis = "Sjíždění Vltavy",          Vzdalenost = "přímo",  Popis = "Kánoe a raftingové vybavení půjčíme přímo v penzionu. Trasy pro začátečníky i pokročilé – od klidných úseků po peřeje." },
+            new { Emoji = "⛷️", Nadpis = "Lyžování Kramolín",        Vzdalenost = "10 km",  Popis = "7 sjezdovek různé obtížnosti, běžecké tratě. Rodinný lyžařský areál přímo na Šumavě – ideální pro děti i dospělé." },
+            new { Emoji = "🎿", Nadpis = "Ski areál Sterstein (AT)", Vzdalenost = "15 km",  Popis = "Rakouský lyžařský areál přes hranici – 2 sjezdovky, méně turistů a výborné podmínky. Denní výlet na lyže." },
+            new { Emoji = "🌊", Nadpis = "Aquaworld Lipno",          Vzdalenost = "9 km",   Popis = "Největší aquapark v jižních Čechách – tobogány, bazény, sauny. Ideální pro celou rodinu v každém počasí." },
+            new { Emoji = "⛳", Nadpis = "Golf Club Lipno",          Vzdalenost = "12 km",  Popis = "18jamkové hřiště s výhledem na Šumavu a Lipenskou přehradu. Půjčení vybavení k dispozici." },
+            new { Emoji = "🚴", Nadpis = "Cyklotrasy",               Vzdalenost = "přímo",  Popis = "5 tras o délce 23–40 km přímo z penzionu. Různá obtížnost – od rodinných výletů po náročné šumavské stoupání." },
+            new { Emoji = "🥾", Nadpis = "Turistika",                Vzdalenost = "přímo",  Popis = "4 turistické trasy startují přímo od penzionu – Maria Rast (6–7 km), Vyklestilka (14 km) a další šumavské stezky." },
+            new { Emoji = "🏇", Nadpis = "Jezdectví NOWA",           Vzdalenost = "4 km",   Popis = "Jezdecký areál Studánky – vyjížďky na koních přírodou Šumavy pro začátečníky i zkušené jezdce." },
+            new { Emoji = "🏄", Nadpis = "Windsurfing – Lipno",      Vzdalenost = "32 km",  Popis = "Lipenská přehrada nabízí ideální podmínky pro windsurfing a kitesurfing v létě." },
+        };
+    }
+
+    <div class="grid md:grid-cols-2 gap-6">
+        @foreach (var v in vylety)
+        {
+            <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex gap-4">
+                <span class="text-3xl mt-1">@v.Emoji</span>
+                <div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <h3 class="font-semibold text-stone-800">@v.Nadpis</h3>
+                        <span class="text-xs bg-river-50 text-river-700 px-2 py-0.5 rounded-full">@v.Vzdalenost</span>
+                    </div>
+                    <p class="text-stone-500 text-sm">@v.Popis</p>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="mt-12 bg-river-50 rounded-2xl p-8 text-center">
+        <p class="text-stone-700 font-semibold mb-2">Sleva na delší pobyt</p>
+        <p class="text-stone-600 text-sm">10 % sleva od 3 nocí · zdarma od 5 nocí</p>
+        <a href="/#rezervace" class="inline-block mt-5 bg-river-700 hover:bg-river-600 text-white font-semibold px-7 py-3 rounded-full transition-colors">
+            Rezervovat pobyt
+        </a>
+    </div>
+</div>
+
+<footer class="bg-stone-800 text-stone-400 py-8 text-center text-sm">
+    <p>Pension a Restaurace Inge · Mělů 379, 382 73 Vyšší Brod · <a href="tel:+420775856372" class="hover:text-white">+420 775 856 372</a></p>
+</footer>

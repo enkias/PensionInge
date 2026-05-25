@@ -1,0 +1,86 @@
+@{
+    ViewData["Title"] = "Restaurace – Pension Inge Vyšší Brod";
+    ViewData["Description"] = "Restaurace Pension Inge ve Vyšším Brodě – česká kuchyně, zimní zahrada 110 míst, terasa u Vltavy. Otevřeno denně od 7:00.";
+}
+
+<!-- NAV -->
+<nav class="bg-river-800 text-white px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-display font-bold text-lg">Pension Inge</a>
+    <div class="hidden md:flex gap-6 text-sm text-white/80">
+        <a href="/restaurace" class="text-white font-semibold">Restaurace</a>
+        <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
+        <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
+        <a href="/#rezervace" class="bg-white/20 hover:bg-white/30 px-4 py-1.5 rounded-full transition-colors">Rezervovat</a>
+    </div>
+</nav>
+
+<!-- HERO -->
+<div class="relative h-72 md:h-96 overflow-hidden">
+    <img src="/images/inge2-5.jpg" alt="Restaurace Pension Inge" class="w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+    <div class="absolute bottom-8 left-8">
+        <h1 class="font-display text-4xl md:text-5xl font-bold text-white drop-shadow">Restaurace</h1>
+        <p class="text-white/80 mt-2">Česká kuchyně na břehu Vltavy</p>
+    </div>
+</div>
+
+<!-- OBSAH -->
+<div class="max-w-5xl mx-auto px-6 py-16">
+
+    <!-- Otevírací doba + kapacita -->
+    <div class="grid md:grid-cols-2 gap-8 mb-16">
+        <div class="bg-river-50 rounded-2xl p-8">
+            <h2 class="font-semibold text-stone-800 text-xl mb-5">Otevírací doba</h2>
+            <div class="space-y-3 text-sm">
+                <div class="flex justify-between py-2 border-b border-river-100">
+                    <span class="text-stone-600">Neděle – čtvrtek</span>
+                    <span class="font-semibold text-stone-800">7:00 – 20:00</span>
+                </div>
+                <div class="flex justify-between py-2 border-b border-river-100">
+                    <span class="text-stone-600">Pátek – sobota</span>
+                    <span class="font-semibold text-stone-800">7:00 – 22:00</span>
+                </div>
+            </div>
+            <div class="mt-6 space-y-2 text-sm text-stone-600">
+                <p>🌿 Zimní zahrada: <strong>110 míst</strong></p>
+                <p>☀️ Terasy: <strong>80 míst</strong></p>
+                <p>🚗 Parkování: <strong>60 aut + 3 autobusy</strong></p>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="font-semibold text-stone-800 text-xl mb-5">Kuchyně a speciality</h2>
+            <p class="text-stone-600 text-sm mb-4">Tradiční česká kuchyně připravená z čerstvých surovin. Restaurace prošla kompletní rekonstrukcí v roce 2021.</p>
+            <div class="space-y-3">
+                @foreach (var jidlo in new[] { "Guláš – tradiční hovězí se špekovými knedlíky", "Svíčková na smetaně s houskovým knedlíkem", "Vepřové pečení s knedlíkem a zelím", "Čepovaný Budvar – světlý i tmavý" })
+                {
+                    <div class="flex items-start gap-3">
+                        <span class="text-river-600 mt-0.5">✓</span>
+                        <span class="text-stone-600 text-sm">@jidlo</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Fotky restaurace -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-16">
+        <img src="/images/inge2-1.jpg" alt="Restaurace interiér" class="rounded-xl h-48 w-full object-cover" />
+        <img src="/images/inge2-2.jpg" alt="Restaurace zimní zahrada" class="rounded-xl h-48 w-full object-cover" />
+        <img src="/images/inge2-4.jpg" alt="Terasa u Vltavy" class="rounded-xl h-48 w-full object-cover md:block hidden" />
+    </div>
+
+    <!-- Pro skupiny -->
+    <div class="bg-stone-50 rounded-2xl p-8 text-center">
+        <h2 class="font-semibold text-stone-800 text-xl mb-3">Skupiny, oslavy a firemní akce</h2>
+        <p class="text-stone-600 text-sm mb-6 max-w-xl mx-auto">Prostory jsou ideální pro skupinové zájezdy, rodinné oslavy nebo firemní teambuildingy. Kapacita 110–190 míst.</p>
+        <a href="tel:+420775856372" class="inline-block bg-river-700 hover:bg-river-600 text-white font-semibold px-7 py-3 rounded-full transition-colors">
+            Domluvit akci: +420 775 856 372
+        </a>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-stone-800 text-stone-400 py-8 text-center text-sm">
+    <p>Pension a Restaurace Inge · Mělů 379, 382 73 Vyšší Brod · <a href="tel:+420775856372" class="hover:text-white">+420 775 856 372</a></p>
+</footer>

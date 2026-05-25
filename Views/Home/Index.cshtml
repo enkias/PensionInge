@@ -1,0 +1,313 @@
+@{
+    ViewData["Title"] = "Pension Inge – Vyšší Brod · Vltava · Šumava";
+    ViewData["Description"] = "Pension a Restaurace Inge ve Vyšším Brodě na břehu Vltavy. Ubytování, česká restaurace, půjčovna lodí. 200 m od kláštera, 33 km od Českého Krumlova.";
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-[70] bg-river-700 text-white px-6 py-3 rounded-xl shadow-lg text-sm font-semibold">
+        @TempData["Success"]
+    </div>
+}
+
+<!-- HERO -->
+<section x-data="heroSlider()" class="relative min-h-screen flex items-end overflow-hidden">
+
+    <template x-for="(s, i) in slides" :key="i">
+        <div x-show="current === i"
+             x-transition:enter="transition-opacity duration-1000"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity duration-1000"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             class="absolute inset-0 bg-cover bg-center"
+             :style="'background-image:url(' + s.img + ')'">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+        </div>
+    </template>
+
+    <!-- Nav -->
+    <nav class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-5">
+        <a href="/" class="text-white font-display text-xl font-bold drop-shadow">Pension Inge</a>
+        <div class="hidden md:flex gap-6 text-sm text-white/90">
+            <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
+            <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
+            <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
+            <a href="#rezervace" class="bg-river-700 hover:bg-river-600 text-white px-4 py-1.5 rounded-full transition-colors">Rezervovat</a>
+        </div>
+    </nav>
+
+    <!-- Slide dots -->
+    <div class="absolute bottom-32 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+        <template x-for="(s, i) in slides" :key="i">
+            <button x-on:click="goTo(i)" :class="current===i ? 'bg-white' : 'bg-white/40'" class="w-2 h-2 rounded-full transition-colors"></button>
+        </template>
+    </div>
+
+    <!-- Hero text -->
+    <div class="relative z-10 w-full px-6 pb-20 md:px-16">
+        <div class="max-w-3xl">
+            <template x-for="(s, i) in slides" :key="i">
+                <div x-show="current === i">
+                    <span class="inline-block bg-river-700/80 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4" x-text="s.badge"></span>
+                </div>
+            </template>
+            <h1 class="font-display text-4xl md:text-6xl text-white font-bold leading-tight mb-6 drop-shadow-lg">
+                Pension Inge<br/><span class="text-river-300">Vyšší Brod</span>
+            </h1>
+            <p class="text-white/90 text-lg mb-8 max-w-xl">Na břehu Vltavy, 200 m od cisterciáckého kláštera. Ubytování, restaurace a půjčovna lodí.</p>
+            <div class="flex flex-wrap gap-3">
+                <a href="#rezervace" class="bg-river-700 hover:bg-river-600 text-white font-semibold px-7 py-3.5 rounded-full transition-all hover:scale-105 shadow-lg">
+                    Zkontrolovat termín
+                </a>
+                <a href="tel:+420775856372" class="bg-white/10 hover:bg-white/20 backdrop-blur text-white font-semibold px-7 py-3.5 rounded-full transition-colors border border-white/30">
+                    +420 775 856 372
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="bg-white py-16">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+            <div class="w-14 h-14 bg-river-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg class="w-7 h-7 text-river-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <h3 class="font-semibold text-stone-800 mb-2">Přímo na Vltavě</h3>
+            <p class="text-stone-500 text-sm">200 m od kláštera Vyšší Brod, 33 km od Českého Krumlova. Zahrada s grilem přímo u řeky.</p>
+        </div>
+        <div class="text-center">
+            <div class="w-14 h-14 bg-river-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg class="w-7 h-7 text-river-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <h3 class="font-semibold text-stone-800 mb-2">Restaurace s českou kuchyní</h3>
+            <p class="text-stone-500 text-sm">Zimní zahrada pro 110 hostů, terasa 80 míst. Guláš, svíčková, čepovaný Budvar – denně od 7:00.</p>
+        </div>
+        <div class="text-center">
+            <div class="w-14 h-14 bg-river-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <svg class="w-7 h-7 text-river-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+            </div>
+            <h3 class="font-semibold text-stone-800 mb-2">Půjčovna lodí</h3>
+            <p class="text-stone-500 text-sm">Kánoe a rafty přímo v penzionu. Sjíždění Vltavy, turistika, cyklotrasy – příroda na dosah ruky.</p>
+        </div>
+    </div>
+</section>
+
+<!-- POKOJE -->
+<section class="bg-stone-50 py-20">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-stone-800 mb-3">Ubytování</h2>
+            <p class="text-stone-500">8 pokojů · 27 lůžek · dvě budovy 100 m od sebe</p>
+        </div>
+
+        @{
+            var pokoje = new[]
+            {
+                new { Img = "/images/pokoj-1.jpg",   Nadpis = "Čtyřlůžkový s terasou", Popis = "Prostorný pokoj pro rodiny – 4 lůžka, vlastní terasa s výhledem na řeku Vltavu. Koupelna se sprchou, lednička, TV.", Cena = "Cena na dotaz", Badge = "Výhled na řeku",   Pocet = "2×" },
+                new { Img = "/images/interior-2.jpg", Nadpis = "Dvoulůžkový pokoj",     Popis = "Útulný pokoj pro páry nebo výletníky – 2 lůžka, vlastní koupelna se sprchou, lednička, TV. Klidné prostředí.",       Cena = "Cena na dotaz", Badge = "Pro páry",        Pocet = "2×" },
+                new { Img = "/images/inge2-3.jpg",    Nadpis = "Pension Inge 2",         Popis = "Druhá budova 100 m od Inge 1 – zahrada u Vltavy s grilem, společná kuchyňka a společenská místnost. Čtyřlůžkové pokoje.", Cena = "Cena na dotaz", Badge = "Zahrada u řeky", Pocet = "3×" },
+            };
+        }
+
+        <div class="grid md:grid-cols-3 gap-6">
+            @foreach (var p in pokoje)
+            {
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative h-52 overflow-hidden">
+                        <img src="@p.Img" alt="@p.Nadpis" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                        <div class="absolute top-3 left-3">
+                            <span class="bg-river-700 text-white text-xs font-semibold px-2.5 py-1 rounded-full">@p.Badge</span>
+                        </div>
+                        <div class="absolute top-3 right-3">
+                            <span class="bg-black/50 text-white text-xs px-2 py-1 rounded-full">@p.Pocet</span>
+                        </div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-semibold text-stone-800 text-lg mb-2">@p.Nadpis</h3>
+                        <p class="text-stone-500 text-sm mb-4">@p.Popis</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-river-700 font-semibold text-sm">@p.Cena</span>
+                            <a href="#rezervace" class="bg-river-50 hover:bg-river-100 text-river-700 text-sm font-semibold px-4 py-2 rounded-lg transition-colors">Rezervovat</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- VYBAVENÍ -->
+<section class="bg-white py-16">
+    <div class="max-w-5xl mx-auto px-6">
+        <h2 class="font-display text-2xl font-bold text-stone-800 text-center mb-10">Vybavení a služby</h2>
+        @{
+            var vybaveni = new[]
+            {
+                ("🛶", "Půjčovna lodí"),
+                ("🍺", "Restaurace & bar"),
+                ("🚗", "Parkování zdarma"),
+                ("🌿", "Zahrada u Vltavy"),
+                ("🔥", "Gril pro hosty"),
+                ("🏔️", "Lyžování 10 km"),
+                ("🚿", "Koupelna v každém pokoji"),
+                ("📺", "TV na každém pokoji"),
+                ("🧊", "Lednička v pokoji"),
+                ("🍳", "Kuchyňka (Inge 2)"),
+                ("👨‍👩‍👧‍👦", "Rodinné pokoje"),
+                ("🐕", "Zvířata po dohodě"),
+            };
+        }
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+            @foreach (var (emoji, nazev) in vybaveni)
+            {
+                <div class="flex items-center gap-3 bg-stone-50 rounded-xl px-4 py-3">
+                    <span class="text-xl">@emoji</span>
+                    <span class="text-sm text-stone-700 font-medium">@nazev</span>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- FOTO PREVIEW -->
+<section class="py-2">
+    <div class="grid grid-cols-4 h-56 md:h-72">
+        <div class="col-span-2 overflow-hidden"><img src="/images/vltava.jpg" alt="Výhled na Vltavu" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" /></div>
+        <div class="overflow-hidden"><img src="/images/exterior-1.jpg" alt="Pension Inge exteriér" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" /></div>
+        <div class="overflow-hidden"><img src="/images/inge2-4.jpg" alt="Pension Inge 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" /></div>
+    </div>
+</section>
+
+<!-- REZERVACE -->
+<section id="rezervace" class="bg-stone-50 py-20">
+    <div class="max-w-3xl mx-auto px-6">
+        <div class="text-center mb-10">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-stone-800 mb-3">Poptávka ubytování</h2>
+            <p class="text-stone-500">Přímou rezervací získáte nejlepší cenu a osobní přístup. Odpovíme do 24 hodin.</p>
+        </div>
+
+        <div x-data="rezervaceForm()" class="bg-white rounded-2xl shadow-sm p-8">
+            <!-- Krok 1 -->
+            <div x-show="step === 1">
+                <h3 class="font-semibold text-stone-700 mb-6 text-lg">1 / 2 — Termín a pokoj</h3>
+                <div class="grid sm:grid-cols-2 gap-5">
+                    <div>
+                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Příjezd</label>
+                        <input type="date" x-model="od" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Odjezd</label>
+                        <input type="date" x-model="do_" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Typ pokoje</label>
+                        <select x-model="typ" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500">
+                            <option value="">— Vyberte —</option>
+                            <option>Čtyřlůžkový s terasou (Inge 1)</option>
+                            <option>Třílůžkový (Inge 1)</option>
+                            <option>Dvoulůžkový (Inge 2)</option>
+                            <option>Čtyřlůžkový (Inge 2)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-stone-600 mb-1.5">Počet osob</label>
+                        <input type="number" x-model="osoby" min="1" max="8" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+                    </div>
+                </div>
+                <button x-on:click="step=2" :disabled="!od || !do_ || !typ"
+                        class="mt-6 w-full bg-river-700 hover:bg-river-600 disabled:opacity-40 text-white font-semibold py-3.5 rounded-xl transition-colors">
+                    Pokračovat →
+                </button>
+            </div>
+
+            <!-- Krok 2 -->
+            <div x-show="step === 2">
+                <h3 class="font-semibold text-stone-700 mb-6 text-lg">2 / 2 — Kontaktní údaje</h3>
+                <form method="post" action="/rezervace">
+                    <input type="hidden" name="Od"       :value="od" />
+                    <input type="hidden" name="Do"       :value="do_" />
+                    <input type="hidden" name="TypPokoje" :value="typ" />
+                    <input type="hidden" name="Osoby"    :value="osoby" />
+                    <div class="grid sm:grid-cols-2 gap-5">
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-stone-600 mb-1.5">Jméno a příjmení</label>
+                            <input type="text" name="Jmeno" required class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-stone-600 mb-1.5">E-mail</label>
+                            <input type="email" name="Email" required class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-stone-600 mb-1.5">Telefon</label>
+                            <input type="tel" name="Telefon" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500" />
+                        </div>
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-stone-600 mb-1.5">Poznámka</label>
+                            <textarea name="Poznamka" rows="3" class="w-full border border-stone-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-river-500 resize-none" placeholder="Speciální požadavky, přibližný čas příjezdu…"></textarea>
+                        </div>
+                    </div>
+                    <div class="flex gap-3 mt-6">
+                        <button type="button" x-on:click="step=1" class="px-6 py-3 border border-stone-200 text-stone-600 rounded-xl text-sm hover:bg-stone-50 transition-colors">← Zpět</button>
+                        <button type="submit" class="flex-1 bg-river-700 hover:bg-river-600 text-white font-semibold py-3.5 rounded-xl transition-colors">Odeslat poptávku</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <p class="text-center text-stone-400 text-xs mt-4">Bezplatné storno · Odpověď do 24 hodin · Bez poplatků za rezervaci</p>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-stone-800 text-stone-300 py-12">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+        <div>
+            <p class="font-display text-white font-bold text-lg mb-3">Pension Inge</p>
+            <p class="text-sm leading-relaxed">Mělů 379<br />382 73 Vyšší Brod<br />Jižní Čechy</p>
+        </div>
+        <div>
+            <p class="font-semibold text-white mb-3">Kontakt</p>
+            <p class="text-sm"><a href="tel:+420775856372" class="hover:text-white">+420 775 856 372</a></p>
+            <p class="text-sm"><a href="mailto:info@pensioninge.cz" class="hover:text-white">info@pensioninge.cz</a></p>
+        </div>
+        <div>
+            <p class="font-semibold text-white mb-3">Navigace</p>
+            <div class="flex flex-col gap-1 text-sm">
+                <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
+                <a href="/vylety" class="hover:text-white transition-colors">Výlety v okolí</a>
+                <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
+                <a href="#rezervace" class="hover:text-white transition-colors">Rezervace</a>
+            </div>
+        </div>
+    </div>
+    <div class="max-w-6xl mx-auto px-6 mt-8 pt-6 border-t border-stone-700 text-xs text-stone-500 text-center">
+        © 2025 Pension a Restaurace Inge · Vyšší Brod
+    </div>
+</footer>
+
+@section Scripts {
+<script>
+function heroSlider() {
+    return {
+        current: 0,
+        slides: [
+            { img: '/images/letecky.jpg',   badge: 'Pension Inge · Vyšší Brod · Jižní Čechy · Vltava' },
+            { img: '/images/vltava.jpg',    badge: '🛶 Kanoistika a rafting přímo od penzionu' },
+            { img: '/images/exterior-1.jpg', badge: '🌿 Příroda a klid na břehu Vltavy' },
+            { img: '/images/inge2-2.jpg',   badge: '🏛️ 200 m od cisterciáckého kláštera Vyšší Brod' },
+        ],
+        init() {
+            setInterval(() => { this.current = (this.current + 1) % this.slides.length; }, 5000);
+        },
+        goTo(i) { this.current = i; }
+    };
+}
+function rezervaceForm() {
+    return { step: 1, od: '', do_: '', typ: '', osoby: 2 };
+}
+</script>
+}
