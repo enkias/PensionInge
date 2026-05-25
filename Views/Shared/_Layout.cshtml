@@ -29,39 +29,27 @@
 </head>
 <body class="bg-stone-50 text-stone-800 font-sans">
 
-    <!-- Sticky navbar + jazyková lišta -->
-    <div x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 80)">
-
-        <!-- Sticky navbar (po scrollu) -->
-        <div x-show="scrolled"
-             x-transition:enter="transition duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-2"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             class="fixed top-0 left-0 right-0 z-50 bg-river-800/95 backdrop-blur-sm shadow-lg">
-            <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-                <a href="/" class="text-white">@await Html.PartialAsync("_Logo")</a>
-                <div class="hidden md:flex items-center gap-5 text-sm text-white/80">
-                    <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
-                    <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
-                    <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
-                    <a href="#rezervace" class="bg-white/20 hover:bg-white/30 text-white px-4 py-1.5 rounded-full transition-colors font-semibold">Rezervovat přímo</a>
-                    <div class="flex items-center gap-2 pl-2 border-l border-white/20">
-                        <a href="#" title="Česky"><img src="https://flagcdn.com/w20/cz.png" width="20" height="14" alt="CZ" class="rounded-sm opacity-100" /></a>
-                        <a href="#" title="English"><img src="https://flagcdn.com/w20/gb.png" width="20" height="14" alt="EN" class="rounded-sm opacity-60 hover:opacity-100" /></a>
-                        <a href="#" title="Deutsch"><img src="https://flagcdn.com/w20/de.png" width="20" height="14" alt="DE" class="rounded-sm opacity-60 hover:opacity-100" /></a>
-                    </div>
+    <!-- Globální navbar – na homepage průhledný → tmavý při scrollu; na subpages vždy tmavý -->
+    @{ bool isHomepage = ViewContext.RouteData.Values["action"]?.ToString() == "Index"; }
+    <nav x-data="{ scrolled: @(isHomepage ? "false" : "true") }"
+         x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 60)"
+         :class="scrolled ? 'bg-river-800 shadow-lg' : 'bg-transparent'"
+         class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
+            <a href="/" class="text-white">@await Html.PartialAsync("_Logo")</a>
+            <div class="hidden md:flex items-center gap-5 text-sm text-white">
+                <a href="/restaurace" class="opacity-80 hover:opacity-100 transition-opacity">Restaurace</a>
+                <a href="/vylety"     class="opacity-80 hover:opacity-100 transition-opacity">Výlety</a>
+                <a href="/galerie"    class="opacity-80 hover:opacity-100 transition-opacity">Galerie</a>
+                <a href="/#rezervace" class="bg-white text-river-800 hover:bg-river-50 px-4 py-1.5 rounded-full transition-colors font-semibold whitespace-nowrap">Rezervovat přímo</a>
+                <div class="flex items-center gap-1.5 pl-3 border-l border-white/25">
+                    <a href="#" title="Česky"><img src="https://flagcdn.com/w20/cz.png" width="20" height="14" alt="CZ" class="rounded-sm opacity-100 hover:opacity-100" /></a>
+                    <a href="#" title="English"><img src="https://flagcdn.com/w20/gb.png" width="20" height="14" alt="EN" class="rounded-sm opacity-60 hover:opacity-100 transition-opacity" /></a>
+                    <a href="#" title="Deutsch"><img src="https://flagcdn.com/w20/de.png" width="20" height="14" alt="DE" class="rounded-sm opacity-60 hover:opacity-100 transition-opacity" /></a>
                 </div>
             </div>
         </div>
-
-        <!-- Plovoucí jazyková lišta (jen v hero, bez scrollu) -->
-        <div x-show="!scrolled" class="lang-bar fixed top-3 right-4 z-[60] flex items-center gap-2 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1.5">
-            <a href="#" title="Česky"   class="active"><img src="https://flagcdn.com/w20/cz.png" width="20" height="14" alt="CZ" class="rounded-sm" /></a>
-            <a href="#" title="English"><img src="https://flagcdn.com/w20/gb.png" width="20" height="14" alt="EN" class="rounded-sm" /></a>
-            <a href="#" title="Deutsch"><img src="https://flagcdn.com/w20/de.png" width="20" height="14" alt="DE" class="rounded-sm" /></a>
-        </div>
-
-    </div>
+    </nav>
 
     @RenderBody()
 
