@@ -29,6 +29,24 @@
 </head>
 <body class="bg-stone-50 text-stone-800 font-sans">
 
+    <!-- Sticky navbar -->
+    <div x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 80)"
+         x-show="scrolled"
+         x-transition:enter="transition duration-200"
+         x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         class="fixed top-0 left-0 right-0 z-50 bg-river-800/95 backdrop-blur-sm shadow-lg">
+        <div class="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between pr-36">
+            <a href="/" class="text-white font-display font-bold text-lg">Pension Inge</a>
+            <div class="hidden md:flex gap-6 text-sm text-white/80">
+                <a href="/restaurace" class="hover:text-white transition-colors">Restaurace</a>
+                <a href="/vylety" class="hover:text-white transition-colors">Výlety</a>
+                <a href="/galerie" class="hover:text-white transition-colors">Galerie</a>
+                <a href="#rezervace" class="bg-white/20 hover:bg-white/30 text-white px-4 py-1.5 rounded-full transition-colors font-semibold">Rezervovat</a>
+            </div>
+        </div>
+    </div>
+
     <!-- Jazyková lišta -->
     <div class="lang-bar fixed top-3 right-4 z-[60] flex items-center gap-2 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1.5">
         <a href="#" title="Česky"   class="active"><img src="https://flagcdn.com/w20/cz.png" width="20" height="14" alt="CZ" class="rounded-sm" /></a>
