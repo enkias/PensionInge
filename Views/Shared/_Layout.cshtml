@@ -31,8 +31,10 @@
 
     <!-- Globální navbar – na homepage průhledný → tmavý při scrollu; na subpages vždy tmavý -->
     @{ bool isHomepage = ViewContext.RouteData.Values["action"]?.ToString() == "Index"; }
-    <nav x-data="{ scrolled: @(isHomepage ? "false" : "true") }"
-         x-init="window.addEventListener('scroll', () => scrolled = window.scrollY > 60)"
+    @{ var scrollInit = isHomepage ? "false" : "true"; }
+    @{ var scrollHandler = isHomepage ? "window.addEventListener('scroll', () => scrolled = window.scrollY > 60)" : ""; }
+    <nav x-data="{ scrolled: @scrollInit }"
+         x-init="@scrollHandler"
          :class="scrolled ? 'bg-river-800 shadow-lg' : 'bg-gradient-to-b from-black/50 to-transparent'"
          class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
